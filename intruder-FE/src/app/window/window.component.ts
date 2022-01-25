@@ -30,10 +30,11 @@ export class WindowComponent implements OnInit {
   countFalse: number = 0;
   countYellow: number = 0;
   alarmGoingOn: boolean = false;
-
+  
+ 
   constructor() { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(){
     // console.log(this.container?.nativeElement.offsetWidth);
     // let x =document.getElementById('#areaContainer');
     // // console.log((this.container?.nativeElement as HTMLElement).offsetWidth)
@@ -45,8 +46,8 @@ export class WindowComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
 onResize(event : any) {
   this.draw()
-          this.resetCanvas();
-        this.scaleCoordinates();
+  this.resetCanvas();
+  this.scaleCoordinates();
 }
 
   draw(){
