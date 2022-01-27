@@ -9,10 +9,11 @@ canvas{
 }
 .main-container{
   display:grid;
-  grid-template-columns: 90% 1fr;
+  grid-template-columns: 80% 1fr;
   grid-template-rows: auto;
   grid-template-areas: ". .";
   grid-column-gap: 10px;
+  
 }
 #alarm {
   background: red;
@@ -21,5 +22,8 @@ canvas{
 
 
 #areaContainer{
-
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  width: 100%;
+  position: relative;
 }

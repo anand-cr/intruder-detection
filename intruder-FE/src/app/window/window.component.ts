@@ -52,7 +52,7 @@ export class WindowComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
 onResize(event : any) {
   
-  this.draw()
+  this.draw();
   this.resetCanvas();
   this.scaleCoordinates();
 }
@@ -70,8 +70,8 @@ onResize(event : any) {
       hoverCursor: 'crosshair',
       selection: false,
       backgroundColor : "#FFA",
-      width: this.imageWidth - 16,
-      height: this.imageHeight -16 
+      width: this.imageWidth ,
+      height: this.imageHeight 
     });
 
     // this.canvas.add(
