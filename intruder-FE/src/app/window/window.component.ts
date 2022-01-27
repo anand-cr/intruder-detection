@@ -47,6 +47,7 @@ export class WindowComponent implements OnInit {
     //! Draw for the first time
     this.draw(); 
     this.addCircle();
+    this.createIm();
   }
   //! draw everytime when window resizes to scale
   //! Draw 
@@ -57,6 +58,7 @@ onResize(event : any) {
   this.resetCanvas();
   this.scaleCoordinates();
   this.addCircle();
+  this.createIm();
 }
 
   draw(){
@@ -254,38 +256,23 @@ onResize(event : any) {
       radius: 250, left: 400, top: 100, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
     });
   }
-  createCircleb() {
-    return new fabric.Circle({
-      radius: 100, left: 540, top: 240, fill: '#231F20',borderColor:'#000000',hasBorders:true,lockMovementX:false,lockMovementY:false
-    });
-  }
-  createtriangle(){
-    return new fabric.Triangle({
-      width:50,
-      height:50,
-      left:610,
-      top:320,
-      fill:'#FFFFFF',
-      absolutePositioned:true,
-      flipY:true,
-      lockMovementX:true,
-      lockMovementY:true
-
-    })
-  }
+  
  // selectItemAfterAdded(obj: any) {
    // this.canvas.discardActiveObject().renderAll();
     //this.canvas.setActiveObject(obj);
   //}
   addCircle() {
     var c = this.createCircle();
-    var b= this.createCircleb();
-    var t=this.createtriangle();
     this.canvas.add(c);
-    this.canvas.add(b);
-    this.canvas.add(t);
     this.canvas.renderAll();
     //this.selectItemAfterAdded(c);
+  }
+  createIm()
+  {
+    fabric.Image.fromURL('i1.png',(oImg) =>
+    {
+      this.canvas.add(oImg);
+      });
   }
   
 }
