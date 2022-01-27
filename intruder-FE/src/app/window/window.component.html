@@ -2,13 +2,14 @@
   <div #container id="areaContainer"> 
     <canvas id="canvas"></canvas>
   </div> 
-  <div id="alarm"> alarm</div>
+  <div id="alarm"> 
+    <div class="pb-2">Intrusion Status: <span class="warning-msg">PERSON IN
+      INTRUSION ZONE</span><span class="stop">Safe</span><span
+      *ngIf="persons.length === 0">NA</span>
+  </div>
+  </div>
 </div>
 
-<!-- <div class="col-sm-3 d-flex align-items-center flex-column pr-0">
-  <div class="pb-2">Intrusion Status: <span class="warning-msg">PERSON IN
-    INTRUSION ZONE</span>
-  </div>
-</div> -->
+
 
 

@@ -1,22 +1,28 @@
 
 canvas{
   border: solid black 1px;
-  height: 100%;
-  width : 100%;
+  height: 100vh;
+  width : 100vh;
   
   /* position: relative;
   display: block; */
 }
 .main-container{
+  width: 100%;
+  height: 100%;
+  /* display: flex;
+  flex-direction: row; */ 
+  
   display:grid;
-  grid-template-columns: 80% 1fr;
+  grid-template-columns: 70% 1fr;
   grid-template-rows: auto;
   grid-template-areas: ". .";
   grid-column-gap: 10px;
   
 }
 #alarm {
-  background: red;
+  background: 	#D3D3D3	;
+  border: black 1px solid;
   
 }
 
