@@ -46,6 +46,7 @@ export class WindowComponent implements OnInit {
     // console.log(pos);
     //! Draw for the first time
     this.draw(); 
+    this.addCircle();
   }
   //! draw everytime when window resizes to scale
   //! Draw 
@@ -55,6 +56,7 @@ onResize(event : any) {
   this.draw();
   this.resetCanvas();
   this.scaleCoordinates();
+  this.addCircle();
 }
 
   draw(){
@@ -73,6 +75,7 @@ onResize(event : any) {
       width: this.imageWidth ,
       height: this.imageHeight 
     });
+  
 
     // this.canvas.add(
     //   new fabric.Rect({ top: 100, left: 100, width: 50, height: 50, fill: '#f55' }),
@@ -97,6 +100,7 @@ onResize(event : any) {
     // });
     // this.scaleCoordinates();
     // this.runLive();
+    this.addCircle();
   }
 
 
@@ -245,4 +249,43 @@ onResize(event : any) {
       this.canvas.remove(objects[i]);
     }
   }
+  createCircle() {
+    return new fabric.Circle({
+      radius: 250, left: 400, top: 100, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
+    });
+  }
+  createCircleb() {
+    return new fabric.Circle({
+      radius: 100, left: 540, top: 240, fill: '#231F20',borderColor:'#000000',hasBorders:true,lockMovementX:false,lockMovementY:false
+    });
+  }
+  createtriangle(){
+    return new fabric.Triangle({
+      width:50,
+      height:50,
+      left:610,
+      top:320,
+      fill:'#FFFFFF',
+      absolutePositioned:true,
+      flipY:true,
+      lockMovementX:true,
+      lockMovementY:true
+
+    })
+  }
+ // selectItemAfterAdded(obj: any) {
+   // this.canvas.discardActiveObject().renderAll();
+    //this.canvas.setActiveObject(obj);
+  //}
+  addCircle() {
+    var c = this.createCircle();
+    var b= this.createCircleb();
+    var t=this.createtriangle();
+    this.canvas.add(c);
+    this.canvas.add(b);
+    this.canvas.add(t);
+    this.canvas.renderAll();
+    //this.selectItemAfterAdded(c);
+  }
+  
 }
