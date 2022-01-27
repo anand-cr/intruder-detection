@@ -3,10 +3,15 @@
     <canvas id="canvas"></canvas>
   </div> 
   <div id="alarm"> 
-    <div class="pb-2">Intrusion Status: <span class="warning-msg">PERSON IN
-      INTRUSION ZONE</span><span class="stop">Safe</span><span
-      *ngIf="persons.length === 0">NA</span>
-  </div>
+    <div>
+      <span>
+        <img class="warning-sign" src="/assets/images/warning-sign.svg" alt="warning sign">
+        <span class="warning-text">WARNING</span> 
+      </span>
+    </div>
+    <div class="bottom-element">
+        <p class="bottom-text" align="center">Anti-Collision system status</p>
+    </div>
   </div>
 </div>
 
