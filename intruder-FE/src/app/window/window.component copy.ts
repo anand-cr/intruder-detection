@@ -17,8 +17,10 @@ export class WindowComponent implements OnInit {
   matrixSize: any[] = [];
   boundaries: any[] = [
     //! give seperate boundaries for different objects
+    
     // { id: 1, actualCoordinates: [{ x: 0.18, y: 0.38 }, { x: 0.82, y: 0.38 }, { x: 0.82, y: 0.62 }, { x: 0.18, y: 0.62 }, { x: 0.18, y: 0.38 }], color: '#A9A9A9', fill: '#A9A9A9', fillText: '' },
-    { id: 1, actualCoordinates: [{ x: 0., y: 0}, { x: 1, y: 0 }, { x: 1, y: 1 }, { x: 0, y: 1 }], color: '#A9A9A9', fill: '#A9A9A9', fillText: '' },
+    //! Uncomment it to fit the canvas with a polyline
+    // { id: 1, actualCoordinates: [{ x: 0., y: 0}, { x: 1, y: 0 }, { x: 1, y: 1 }, { x: 0, y: 1 }], color: '#A9A9A9', fill: '#A9A9A9', fillText: '' },
     //{ id: 2, actualCoordinates: [{ x: 0.65, y: 0.02 }, { x: 0.95, y: 0.02 }, { x: 0.95, y: 0.90 }, { x: 0.65, y: 0.90 }], color: 'black', fill: 'lightgrey', fillText: '' }
     //{ id: 2, actualCoordinates: [{ x: 0.65, y: 0.02 }, { x: 0.95, y: 0.02 }, { x: 0.95, y: 0.90 }, { x: 0.65, y: 0.90 }, { x: 0.26, y: 0.46 }], color: 'black', fill: 'lightgrey', fillText: 'CONTAINER' }
   ];
@@ -46,6 +48,8 @@ export class WindowComponent implements OnInit {
     // console.log(pos);
     //! Draw for the first time
     this.draw(); 
+    this.addCircle()
+    
   }
   //! draw everytime when window resizes to scale
   //! Draw 
@@ -55,6 +59,7 @@ onResize(event : any) {
   this.draw();
   this.resetCanvas();
   this.scaleCoordinates();
+  this.addCircle();
 }
 
   draw(){
@@ -73,6 +78,8 @@ onResize(event : any) {
       width: this.imageWidth ,
       height: this.imageHeight 
     });
+    
+    // this.addCircle();
 
     // this.canvas.add(
     //   new fabric.Rect({ top: 100, left: 100, width: 50, height: 50, fill: '#f55' }),
@@ -97,6 +104,7 @@ onResize(event : any) {
     // });
     // this.scaleCoordinates();
     // this.runLive();
+    // this.addCircle();
   }
 
 
@@ -245,4 +253,55 @@ onResize(event : any) {
       this.canvas.remove(objects[i]);
     }
   }
+
+// oc_radius = this.imageHeight/3
+
+
+
+  createCircle() {
+    return new fabric.Circle({
+   //   radius: 250, left: 400, top: 100, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
+      radius: this.imageHeight/3, left: this.imageWidth/2 -(this.imageHeight/3) , top: this.imageHeight/2 -(this.imageHeight/3), fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
+    });
+  }
+  createCircleb() {
+    return new fabric.Circle({
+      radius: this.imageHeight/6, left: this.imageWidth/2 -(this.imageHeight/3) +this.imageHeight/6, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6, fill: '#231F20',borderColor:'#000000',hasBorders:true,lockMovementX:false,lockMovementY:false
+    });
+  }
+  createtriangle(){
+    return new fabric.Triangle({
+      width:50,
+      height:50,
+      left: this.imageWidth/2 -25,
+      top: this.imageHeight/2 - 10,
+      fill:'#AAA',
+      absolutePositioned:true,
+      flipY:true,
+      lockMovementX:true,
+      lockMovementY:true
+
+    })
+  }
+ // selectItemAfterAdded(obj: any) {
+   // this.canvas.discardActiveObject().renderAll();
+    //this.canvas.setActiveObject(obj);
+  //}
+  addCircle() {
+    var c = this.createCircle();
+    var b= this.createCircleb();
+    var t=this.createtriangle();
+    this.canvas.add(c);
+    this.canvas.add(b);
+    this.canvas.add(t);
+    this.canvas.renderAll();
+    console.log("radius "+ c.radius);
+    console.log("radius "+ c.left);
+    //this.selectItemAfterAdded(c);
+
+    c.set({
+
+    })
+  }
+  
 }

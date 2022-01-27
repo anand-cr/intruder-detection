@@ -253,6 +253,11 @@ onResize(event : any) {
       this.canvas.remove(objects[i]);
     }
   }
+
+// oc_radius = this.imageHeight/3
+
+
+
   createCircle() {
     return new fabric.Circle({
    //   radius: 250, left: 400, top: 100, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
