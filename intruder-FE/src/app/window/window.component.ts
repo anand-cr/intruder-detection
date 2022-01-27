@@ -253,7 +253,8 @@ onResize(event : any) {
   }
   createCircle() {
     return new fabric.Circle({
-      radius: 250, left: 400, top: 100, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
+      
+     radius: 250, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
     });
   }
   
@@ -261,18 +262,30 @@ onResize(event : any) {
    // this.canvas.discardActiveObject().renderAll();
     //this.canvas.setActiveObject(obj);
   //}
+  radiusCircle=0;
   addCircle() {
     var c = this.createCircle();
     this.canvas.add(c);
+    this.radiusCircle=c.getRadiusX();
+    this.canvas.centerObject(c);
     this.canvas.renderAll();
     //this.selectItemAfterAdded(c);
   }
+  private clamp(num:number, min:number, max:number) {
+    return Math.min(Math.max(num, min), max);
+  };
+ 
   createIm()
   {
-    fabric.Image.fromURL('i1.png',(oImg) =>
+    fabric.Image.fromURL('/assets/images/incircle.png',(i) =>
     {
+      //var oImg = i.set({ left:610, top: 320}).scale(0.2);
+      var oImg = i.set({ left: this.imageWidth/3, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6}).scale(this.radiusCircle*0.005);
+      this.canvas.centerObject(i);
+      var bound = i.getBoundingRect();
       this.canvas.add(oImg);
       });
+      
   }
   
 }
