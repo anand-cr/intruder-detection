@@ -269,8 +269,10 @@ onResize(event : any) {
   }
   createIm()
   {
-    fabric.Image.fromURL('i1.png',(oImg) =>
+    fabric.Image.fromURL('/assets/images/incircle.png',(i) =>
     {
+      //var oImg = i.set({ left:610, top: 320}).scale(0.2);
+      var oImg = i.set({ left: this.imageWidth/3, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6}).scale(0.2);
       this.canvas.add(oImg);
       });
   }
