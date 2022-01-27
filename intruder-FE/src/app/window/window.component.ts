@@ -18,8 +18,8 @@ export class WindowComponent implements OnInit {
   boundaries: any[] = [
     //! give seperate boundaries for different objects
     // { id: 1, actualCoordinates: [{ x: 0.18, y: 0.38 }, { x: 0.82, y: 0.38 }, { x: 0.82, y: 0.62 }, { x: 0.18, y: 0.62 }, { x: 0.18, y: 0.38 }], color: '#A9A9A9', fill: '#A9A9A9', fillText: '' },
-    { id: 1, actualCoordinates: [{ x: 0.01, y: 0.02}, { x: 0.6, y: 0.02 }, { x: 0.6, y: 0.90 }, { x: 0.01, y: 0.90 }], color: '#A9A9A9', fill: '#A9A9A9', fillText: '' },
-    { id: 2, actualCoordinates: [{ x: 0.65, y: 0.02 }, { x: 0.95, y: 0.02 }, { x: 0.95, y: 0.90 }, { x: 0.65, y: 0.90 }], color: 'black', fill: 'lightgrey', fillText: '' }
+    { id: 1, actualCoordinates: [{ x: 0., y: 0}, { x: 1, y: 0 }, { x: 1, y: 1 }, { x: 0, y: 1 }], color: '#A9A9A9', fill: '#A9A9A9', fillText: '' },
+    //{ id: 2, actualCoordinates: [{ x: 0.65, y: 0.02 }, { x: 0.95, y: 0.02 }, { x: 0.95, y: 0.90 }, { x: 0.65, y: 0.90 }], color: 'black', fill: 'lightgrey', fillText: '' }
     //{ id: 2, actualCoordinates: [{ x: 0.65, y: 0.02 }, { x: 0.95, y: 0.02 }, { x: 0.95, y: 0.90 }, { x: 0.65, y: 0.90 }, { x: 0.26, y: 0.46 }], color: 'black', fill: 'lightgrey', fillText: 'CONTAINER' }
   ];
   matrixBoundaries: any[] = [];
