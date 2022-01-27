@@ -49,6 +49,7 @@ export class WindowComponent implements OnInit {
     //! Draw for the first time
     this.draw(); 
     this.addCircle()
+    this.createIm()
     
   }
   //! draw everytime when window resizes to scale
@@ -60,6 +61,7 @@ onResize(event : any) {
   this.resetCanvas();
   this.scaleCoordinates();
   this.addCircle();
+   this.createIm()
 }
 
   draw(){
@@ -292,8 +294,8 @@ onResize(event : any) {
     var b= this.createCircleb();
     var t=this.createtriangle();
     this.canvas.add(c);
-    this.canvas.add(b);
-    this.canvas.add(t);
+    //this.canvas.add(b);
+    // this.canvas.add(t);
     this.canvas.renderAll();
     console.log("radius "+ c.radius);
     console.log("radius "+ c.left);
@@ -302,6 +304,22 @@ onResize(event : any) {
     c.set({
 
     })
+  }
+
+  createIm()
+  {
+    fabric.Image.fromURL('/assets/images/incircle.png',(img) =>
+    {
+      // oImg.scaleToHeight(this.imageHeight/6)
+      // oImg.scaleToWidth(this.imageHeight/6)
+      // oImg.left(4)
+      var oImg = img.set({ left: this.imageWidth/3 + 15 , top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6}).scale(0.5);
+      
+      this.canvas.add(oImg);
+
+     console.log(oImg.left);
+      
+      });
   }
   
 }
