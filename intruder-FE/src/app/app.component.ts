@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { fabric } from 'fabric';
 
 @Component({
@@ -8,6 +8,8 @@ import { fabric } from 'fabric';
 })
 export class AppComponent {
   title = 'intruder-FE';
+  //!
 
-  
 }
+  
+
