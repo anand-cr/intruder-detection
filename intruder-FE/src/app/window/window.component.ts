@@ -14,6 +14,8 @@ export class WindowComponent implements OnInit {
   imageHeight: number = 0;
   // someoneInside: boolean;
   canvas: any;
+  imx:any;
+  imy:any;
   matrixSize: any[] = [];
   boundaries: any[] = [
     //! give seperate boundaries for different objects
@@ -48,6 +50,7 @@ export class WindowComponent implements OnInit {
     this.draw(); 
     this.addCircle();
     this.createIm();
+    this.createInIm(500,180);
   }
   //! draw everytime when window resizes to scale
   //! Draw 
@@ -59,6 +62,7 @@ onResize(event : any) {
   this.scaleCoordinates();
   this.addCircle();
   this.createIm();
+  this.createInIm(500,180);
 }
 
   draw(){
@@ -68,8 +72,8 @@ onResize(event : any) {
     // this.imageHeight = this.container?.nativeElement.offsetHeight;
     this.imageWidth = $('#areaContainer').width()!;
     this.imageHeight = $('#areaContainer').height()!;
-    console.log(this.imageWidth);
-    console.log(this.imageHeight);
+    //console.log(this.imageWidth);
+   // console.log(this.imageHeight);
     this.canvas = new fabric.Canvas('canvas', {
       hoverCursor: 'crosshair',
       selection: false,
@@ -254,7 +258,7 @@ onResize(event : any) {
   createCircle() {
     return new fabric.Circle({
       
-     radius: 250, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
+     radius: this.imageWidth/5, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
     });
   }
   
@@ -284,8 +288,28 @@ onResize(event : any) {
       this.canvas.centerObject(i);
       var bound = i.getBoundingRect();
       this.canvas.add(oImg);
+      var imageCenter = i.getCenterPoint();
+      console.log(imageCenter);
+      this.imx=i.getCenterPoint().x;
+      this.imy=i.getCenterPoint().y;
+
       });
-      
+
   }
+  createInIm(distance:number,angle:number)
+  {
+   
+    var pointX = this.imx + distance * Math.cos(angle);
+    var pointY = this.imy + distance * Math.sin(angle) ;
+    fabric.Image.fromURL('/assets/images/trolley.png',(im) =>
+    {
+      //var oImg = i.set({ left:610, top: 320}).scale(0.2);
+      var oInImg = im.set({ left:pointX, top: pointY}).scale(this.radiusCircle*0.0009);     
+      //var bound = im.getBoundingRect();
+      this.canvas.add(oInImg);
+      });
+
+  }
+ 
   
 }
