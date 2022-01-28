@@ -36,7 +36,8 @@ export class WindowComponent implements OnInit {
   countFalse: number = 0;
   countYellow: number = 0;
   alarmGoingOn: boolean = false;
-  
+  imx:any;
+  imy:any;
  
   constructor() { }
 
@@ -50,7 +51,7 @@ export class WindowComponent implements OnInit {
     this.draw(); 
     this.addCircle()
     this.createIm()
-    
+    this.createInIm(500,180);
   }
   //! draw everytime when window resizes to scale
   //! Draw 
@@ -61,7 +62,8 @@ onResize(event : any) {
   this.resetCanvas();
   this.scaleCoordinates();
   this.addCircle();
-   this.createIm()
+  this.createIm()
+  this.createInIm(500,180);
 }
 
   draw(){
@@ -71,12 +73,12 @@ onResize(event : any) {
     // this.imageHeight = this.container?.nativeElement.offsetHeight;
     this.imageWidth = $('#areaContainer').width()!;
     this.imageHeight = $('#areaContainer').height()!;
-    console.log(this.imageWidth);
-    console.log(this.imageHeight);
+    // console.log(this.imageWidth);
+    // console.log(this.imageHeight);
     this.canvas = new fabric.Canvas('canvas', {
       hoverCursor: 'crosshair',
       selection: false,
-      backgroundColor : "#FFA",
+      backgroundColor : "#dddddd",
       width: this.imageWidth ,
       height: this.imageHeight 
     });
@@ -143,6 +145,7 @@ onResize(event : any) {
   // }
 
   //! inorder to scale the cordinates
+
   scaleCoordinates() {
     this.boundaries.forEach(boundary => {
       boundary.coordinates = [];
@@ -258,17 +261,18 @@ onResize(event : any) {
 
 // oc_radius = this.imageHeight/3
 
-
-
   createCircle() {
     return new fabric.Circle({
    //   radius: 250, left: 400, top: 100, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
-      radius: this.imageHeight/3, left: this.imageWidth/2 -(this.imageHeight/3) , top: this.imageHeight/2 -(this.imageHeight/3), fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
+   //radius: this.imageHeight/3, left: this.imageWidth/2 -(this.imageHeight/3) , top: this.imageHeight/2 -(this.imageHeight/3), fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
+   radius: this.imageWidth/5, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
     });
   }
+
+  
   createCircleb() {
     return new fabric.Circle({
-      radius: this.imageHeight/6, left: this.imageWidth/2 -(this.imageHeight/3) +this.imageHeight/6, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6, fill: '#231F20',borderColor:'#000000',hasBorders:true,lockMovementX:false,lockMovementY:false
+      radius:this.imageHeight/6, left: this.imageWidth/2 -(this.imageHeight/3) +this.imageHeight/6, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6, fill: '#231F20',borderColor:'#000000',hasBorders:true,lockMovementX:false,lockMovementY:false
     });
   }
   createtriangle(){
@@ -289,21 +293,32 @@ onResize(event : any) {
    // this.canvas.discardActiveObject().renderAll();
     //this.canvas.setActiveObject(obj);
   //}
+  
+  
+  //! radius of circle initialization
+  //* radius
+  //radius
+  //?  radius
+  //todo Create new 
+  
+  radiusCircle =0
+   c: any;
   addCircle() {
-    var c = this.createCircle();
+    this.c = this.createCircle();
     var b= this.createCircleb();
     var t=this.createtriangle();
-    this.canvas.add(c);
-    //this.canvas.add(b);
+    this.canvas.add(this.c);
+   // this.canvas.add(b);
     // this.canvas.add(t);
+    this.radiusCircle = this.c.getRadiusX()
+    this.canvas.centerObject(this.c)
     this.canvas.renderAll();
-    console.log("radius "+ c.radius);
-    console.log("radius "+ c.left);
+    // console.log("radius of c "+ c.radius);
+    // console.log("left c "+ c.left);
     //this.selectItemAfterAdded(c);
+    // console.log(this.radiusCircle);
 
-    c.set({
-
-    })
+    
   }
 
   createIm()
@@ -313,13 +328,39 @@ onResize(event : any) {
       // oImg.scaleToHeight(this.imageHeight/6)
       // oImg.scaleToWidth(this.imageHeight/6)
       // oImg.left(4)
-      var oImg = img.set({ left: this.imageWidth/3 + 15 , top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6}).scale(0.5);
-      
+      var oImg = img.set({ left: this.imageWidth/2.5, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6 + 20}).scale(this.radiusCircle*0.005);   
       this.canvas.add(oImg);
+      this.canvas.centerObject(oImg)
+      
 
-     console.log(oImg.left);
+    //  console.log(oImg.left);
+
+
+     this.canvas.on("object:moving", () =>{
+      // var obj = this.relatedTarget;
+      // var bounds = boundingObject;
+      // oImg.setCoords();
+      
+
+      //todo -> create a boundary
+      // if(!oImg.isContainedWithinObject(this.c)){
+      //   console.log("yes");
+      //   console.log(oImg.getCoords()[0]); 
+      //   oImg.set({left:oImg.getCoords()[0].x,top:oImg.getCoords()[0].y})
+          
+      
+        
+      //     // obj.setLeft(goodleft);
+      //     // canvas.refresh();    
+      // } else {
+       
+          
+      // }  
+  });
       
       });
   }
+  
+  
   
 }
