@@ -30,7 +30,7 @@ export class WindowComponent implements OnInit {
   radiusCircle =0
   c: any;
 
-  distance=200
+  distance=300
   angle= 180
   constructor() { }
 
@@ -351,12 +351,13 @@ onResize(event : any) {
     fabric.Image.fromURL('/assets/images/trolley.png',(im) =>
     { 
       //var oImg = i.set({ left:610, top: 320}).scale(0.2);
-      var oInImg = im.set({ left:pointX, top: pointY}).scale(this.radiusCircle*0.0009);     
+      var oInImg = im.set({ left:pointX, top: pointY, originX :"center" , originY :"center"}).scale(this.radiusCircle*0.0009);     
       //var oInImg = im.set({ left:pointX})//.scale(this.radiusCircle*0.0009);     
       //var bound = im.getBoundingRect();
       // this.canvas.renderAll(oInImg)
+      
       this.canvas.add(oInImg);
-     // this.canvas.centerObject(oInImg);
+      this.canvas.centerObject(oInImg);
       console.log(oInImg.getCoords()); 
       // console.log("image is rendered");
      
@@ -383,7 +384,7 @@ onResize(event : any) {
       // console.log(this.distance*(0.001*this.imageWidth)* Math.tan(this.angle));
       // console.log(topDist);
       // console.log(this.distance*(0.001*this.imageWidth));
-      var img1 = myImg.set({ left: leftDist , top:topDist}).scale(0.002*this.imageWidth);
+      var img1 = myImg.set({ left: leftDist , top:topDist, originX :"center" , originY :"center" }).scale(0.002*this.imageWidth);
       this.canvas.add(img1); 
      this.boundObjectWithinCanvas()
      });
@@ -528,9 +529,12 @@ onResize(event : any) {
 
 }
 
+//!---------------------- issues to fix-----------
 //todo glitch when we click on another object
 //todo inner circle not selectable after resizing a few times
-//todo circle boundary not well defined
-//todo when resizing should the image stay in the same location
+//todo shouldnt move out of 
+//todo not scalable wrt height
+// make intruder image center the point of reference for transformation
+
 
 
