@@ -31,7 +31,7 @@ export class WindowComponent implements OnInit {
   c: any;
 
   distance=200
-  angle=45
+  angle=30
  
   constructor() { }
 
@@ -240,13 +240,14 @@ onResize(event : any) {
    //   radius: 250, left: 400, top: 100, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
    //radius: this.imageHeight/3, left: this.imageWidth/2 -(this.imageHeight/3) , top: this.imageHeight/2 -(this.imageHeight/3), fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
    radius: this.imageWidth/5, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
-    });
+  });
+  
   }
 
   
   // createCircleb() {
   //   return new fabric.Circle({
-  //     radius:this.imageHeight/6, left: this.imageWidth/2 -(this.imageHeight/3) +this.imageHeight/6, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6, fill: '#231F20',borderColor:'#000000',hasBorders:true,lockMovementX:false,lockMovementY:false
+  //     radius:this.imageHeight/6, left: this.imageWidth/2 -(this.imageHeight/3,) +this.imageHeight/6, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6, fill: '#231F20',borderColor:'#000000',hasBorders:true,lockMovementX:false,lockMovementY:false
   //   });
   // }
 
@@ -285,14 +286,14 @@ onResize(event : any) {
     // console.log("left c "+ c.left);
     //this.selectItemAfterAdded(c);
     // console.log(this.radiusCircle);
-
+    this.boundObjectWithinCircle()
     
   }
 
-  //!create imntruder image function (NOT)
+
   createIm()
   {
-    fabric.Image.fromURL('/assets/images/incircle.png',(i) =>
+    fabric.Image.fromURL('/assets/images/incircle1.png',(i) =>
     {
       //var oImg = i.set({ left:610, top: 320}).scale(0.2);
       var oImg = i.set({ left: this.imageWidth/3, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6}).scale(this.radiusCircle*0.005);
@@ -372,14 +373,14 @@ onResize(event : any) {
     //todo only done wrt to center , find center cordinates to allign with other Point of refernces
     fabric.Image.fromURL('/assets/images/cart1.png', (myImg) => {
       
-      var leftDist = this.imageWidth/2 + this.distance*(0.001*this.imageWidth)
-      var topDist = this.imageHeight/2 - (this.distance*(0.001*this.imageWidth)* Math.tan(this.angle))
+      var leftDist = this.imx + this.distance*(0.001*this.imageWidth)
+      var topDist = this.imy - (this.distance*(0.001*this.imageWidth))
       // console.log(this.distance*(0.001*this.imageWidth)* Math.tan(this.angle));
       // console.log(topDist);
       // console.log(this.distance*(0.001*this.imageWidth));
       var img1 = myImg.set({ left: leftDist , top:topDist}).scale(0.002*this.imageWidth);
       this.canvas.add(img1); 
-      this.boundObjectWithinCanvas()
+     this.boundObjectWithinCanvas()
      });
 
 
@@ -412,8 +413,8 @@ onResize(event : any) {
   }
 
   
-  boundObjectWithin(){
-    this.canvas.on('object:moving', function (e: { target: any; }) {
+  boundObjectWithinCircle(){
+    this.c.on('object:moving', function (e: { target: any; }) {
       var obj = e.target;
       console.log(obj.type)
        // if object is too big ignore
@@ -436,14 +437,91 @@ onResize(event : any) {
   
   }
 
-  boundWithinCanvasScale(){
-    
-  }
-  
+
+
+
+  //! to fix the scaling out issue
+
+//   boundWithinCanvasScale(){
+//     this.canvas.on('object:scaling', (e) => this._handleScaling(e));
+
+// }
+
+// _handleScaling(e: { target: any; }) {
+//   var obj = e.target;
+//   var brOld = obj.getBoundingRect();
+//   obj.setCoords();
+//   var brNew = obj.getBoundingRect();
+
+//   if(brOld.left >= 0 && brNew.left < 0) {
+//     let scale = (brOld.width + brOld.left) / obj.width;
+//     let height = obj.height * scale;
+//     let top = ((brNew.top - brOld.top) / (brNew.height - brOld.height) *
+//       (height - brOld.height)) + brOld.top;
+//     this._setScalingProperties(0, top, scale);
+
+//      // top border
+//   if(brOld.top >= 0 && brNew.top < 0) {
+//     let scale = (brOld.height + brOld.top) / obj.height;
+//     let width = obj.width * scale;
+//     let left = ((brNew.left - brOld.left) / (brNew.width - brOld.width) * 
+//       (width - brOld.width)) + brOld.left;
+//     this._setScalingProperties(left, 0, scale);
+//   }
+//   // right border
+//   if(brOld.left + brOld.width <= obj.canvas.width 
+//   && brNew.left + brNew.width > obj.canvas.width) {
+//     let scale = (obj.canvas.width - brOld.left) / obj.width;
+//     let height = obj.height * scale;
+//     let top = ((brNew.top - brOld.top) / (brNew.height - brOld.height) * 
+//       (height - brOld.height)) + brOld.top;
+//     this._setScalingProperties(brNew.left, top, scale);
+//   }
+//   // bottom border
+//   if(brOld.top + brOld.height <= obj.canvas.height 
+//   && brNew.top + brNew.height > obj.canvas.height) {
+//     let scale = (obj.canvas.height - brOld.top) / obj.height;
+//     let width = obj.width * scale;
+//     let left = ((brNew.left - brOld.left) / (brNew.width - brOld.width) * 
+//       (width - brOld.width)) + brOld.left;
+//     this._setScalingProperties(left, brNew.top, scale);
+
+//     if(brNew.left < 0
+//       || brNew.top < 0
+//       || brNew.left + brNew.width > obj.canvas.width
+//       || brNew.top + brNew.height > obj.canvas.height) {
+//         obj.left = this.scalingProperties['left'];
+//         obj.top = this.scalingProperties['top'];
+//         obj.scaleX = this.scalingProperties['scaleX'];
+//         obj.scaleY = this.scalingProperties['scaleY'];
+//         obj.setCoords();
+//       }// else {
+//       //   this.scalingProperties = null;
+//       // }
+//     }  
+//   } 
+ 
+
+// }
+// _setScalingProperties(left: number, top: number, scale: number) {
+//   if(this.scalingProperties == null 
+//   || this.scalingProperties['scaleX'] > scale) {
+//     this.scalingProperties = {
+//       'left': left,
+//       'top': top,
+//       'scaleX': scale,
+//       'scaleX': scale
+//     };
+//   }
+// }
+// scalingProperties = {
+//   'left': 0,
+//   'top': 0,
+//   'scaleX': 0,
+//   'scaleY': 0
+// }
+
 }
-
-
-
 
 //todo glitch when we click on another object
 //todo inner circle not selectable after resizing a few times
