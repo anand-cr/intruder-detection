@@ -31,8 +31,7 @@ export class WindowComponent implements OnInit {
   c: any;
 
   distance=200
-  angle=30
- 
+  angle= 180
   constructor() { }
 
   ngAfterViewInit(){
@@ -372,9 +371,15 @@ onResize(event : any) {
   createIntruderImage(distance:number , angle: number){
     //todo only done wrt to center , find center cordinates to allign with other Point of refernces
     fabric.Image.fromURL('/assets/images/cart1.png', (myImg) => {
-      
-      var leftDist = this.imx + this.distance*(0.001*this.imageWidth)
-      var topDist = this.imy - (this.distance*(0.001*this.imageWidth))
+      var angleInDeg = angle * 0.01745329251
+      var s = Math.sin(angle); // angle is in radians
+      var c = Math.cos(angle);
+
+      // var x_cord = this.distance*(0.001*this.imageWidth) - this.imx
+      // var y_cord = this.distance*(0.001*this.imageWidth)
+//todo to make it scale wrt to height , change the image width to height
+      var leftDist = this.imx + this.distance*(0.001*this.imageWidth)*Math.cos(angleInDeg);
+      var topDist = this.imy + (this.distance*(0.001*this.imageWidth))*Math.sin(angleInDeg);
       // console.log(this.distance*(0.001*this.imageWidth)* Math.tan(this.angle));
       // console.log(topDist);
       // console.log(this.distance*(0.001*this.imageWidth));
