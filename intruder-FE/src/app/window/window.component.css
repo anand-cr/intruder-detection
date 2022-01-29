@@ -1,32 +1,16 @@
+div{
+  position: relative;
+}
 
-/* .header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 10%;
-  margin: auto;
-} */
-
-/* html
-body{
-  height: 100vh;
-  width: 100vw; 
-} */
 canvas{
   border: solid black 1px;
   height: 100%;
   width : 100%;
-  
-  
-  /* position: relative;
-  display: block; */
 }
 .main-container{
- margin: 20px auto;
- margin-bottom: 0;
-  width: 90vw;
-  height: 90vh;
+  margin: 20px auto;
+  width: 90%;
+  height: 90%;
   
   display:grid;
   grid-template-columns: 70% 1fr;
@@ -38,7 +22,6 @@ canvas{
 #alarm {
   background: 	#dddddd	;
   border: black 1px solid;
-  
   position: relative;
 }
 
@@ -76,13 +59,4 @@ canvas{
   width: 100%;
 }
 
-#bottom-text{
 
-}
-/* .redLegendCss {
-  width: 15px;
-  height: 15px;
-  border-radius: 100%;
-  margin: auto;
-  background-color: red;
-} */
