@@ -51,7 +51,7 @@ export class WindowComponent implements OnInit {
     this.draw(); 
     this.addCircle()
     this.createIm()
-    this.createInIm(500,180);
+    //this.createInIm(500,180);
   }
   //! draw everytime when window resizes to scale
   //! Draw 
@@ -63,7 +63,7 @@ onResize(event : any) {
   this.scaleCoordinates();
   this.addCircle();
   this.createIm()
-  this.createInIm(500,180);
+ // this.createInIm(500,180);
 }
 
   draw(){
@@ -313,6 +313,7 @@ onResize(event : any) {
     this.radiusCircle = this.c.getRadiusX()
     this.canvas.centerObject(this.c)
     this.canvas.renderAll();
+    
     // console.log("radius of c "+ c.radius);
     // console.log("left c "+ c.left);
     //this.selectItemAfterAdded(c);

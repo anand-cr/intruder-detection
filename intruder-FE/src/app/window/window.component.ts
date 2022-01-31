@@ -1,7 +1,8 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import {fabric} from 'fabric';
-import { bindCallback, reduce } from 'rxjs';
+import { bindCallback, reduce, take, timer } from 'rxjs';
 import * as $ from 'jquery';
+import { SelectMultipleControlValueAccessor } from '@angular/forms';
 @Component({
   selector: 'app-window',
   templateUrl: './window.component.html',
@@ -29,9 +30,12 @@ export class WindowComponent implements OnInit {
   imy:any;
   radiusCircle =0
   c: any;
+  fillColor : '#FFFFFF'
+  // distance=200
+  | undefined
 
-  distance=200
-  angle= 320
+  distance=195
+  angle= 90
   constructor() { }
 
   ngAfterViewInit(){
@@ -81,113 +85,6 @@ onResize(event : any) {
     
   }
 
-
-//! TO PLOT THE BOUNDARY
-  // plotPlan() {
-  //   let details = { coordinates: [{ x: 0, y: 0 }, { x: this.imageWidth, y: 0 }, { x: this.imageWidth, y: this.imageHeight }, { x: this.imageWidth, y: this.imageHeight }], fillText: 'RMGC 22' };
-  //   this.renderText(details, 50, 10, true, false);
-  //   //!for each given boundary render a polygon
-  //   this.boundaries.forEach(boundary => {
-  //     this.renderPolygon(boundary);
-  //   });
-  // }
-
-
-  // plotMap() {
-  //   this.resetCanvas();
-  //   let details = { coordinates: [{ x: 0, y: 0 }, { x: this.imageWidth, y: 0 }, { x: this.imageWidth, y: this.imageHeight }, { x: this.imageWidth, y: this.imageHeight }], fillText: 'RMGC 22' };
-  //   this.renderText(details, 50, 10, true, false);
-
-  //   if (this.persons.length > 0) {
-  //     this.renderPolygon(this.boundaries[0]);
-  //     this.persons.forEach(person => {
-  //       let coordinates = this.matrixBoundaries.find(i => i.coords[0] === person[0] && i.coords[1] === person[1]);
-  //       this.renderPolygon(coordinates);
-  //     });
-  //     this.renderPolygon(this.boundaries[1]);
-  
-  //   }
-  //   else {
-  //     this.boundaries.forEach(boundary => {
-  //       this.renderPolygon(boundary);
-  //     });
-  //   }
-  // }
-
-  //! inorder to scale the cordinates
-
-  // scaleCoordinates() {
-  //   this.boundaries.forEach(boundary => {
-  //     boundary.coordinates = [];
-  //     boundary.actualCoordinates.forEach((coords:any) => {
-  //       //boundary.coordinates.push({ x: this.imageWidth * coords.x, y: this.imageHeight * coords.y });
-  //       boundary.coordinates.push({ x: this.imageWidth * coords.x, y: this.imageHeight * coords.y });
-  //     });
-  //   });
-  //   this.plotPlan();
-  // }
-
-  // getMatrixCoordinates() {
-  //   let row = this.matrixSize[0];
-  //   let column = this.matrixSize[1];
-  //   let red = this.boundaries.find(item => item.color === 'red').actualCoordinates;
-  //   let startX = red[0].x;
-  //   let startY = red[0].y;
-  //   let distX = Math.abs((red[0].x - red[1].x) / column);
-  //   let distY = Math.abs((red[0].y - red[3].y) / row);
-  //   distX = Math.round((distX + Number.EPSILON) * 1000) / 1000;
-  //   distY = Math.round((distY + Number.EPSILON) * 1000) / 1000;
-  //   var topLeft = [];
-  //   for (var i = 0; i < row; i++) {
-  //     for (var j = 0; j < column; j++) {
-  //       let tempX = startX + j * distX;
-  //       let tempY = startY + i * distY;
-  //       tempX = Math.round((tempX + Number.EPSILON) * 1000) / 1000;
-  //       tempY = Math.round((tempY + Number.EPSILON) * 1000) / 1000;
-  //       var data = { x: tempX, y: tempY, coords: [i + 1, j + 1] };
-  //       topLeft.push(data);
-  //     }
-  //   }
-  //   for (var i = 0; i < topLeft.length; i++) {
-  //     var topRight = { x: topLeft[i].x + distX, y: topLeft[i].y };
-  //     var bottomLeft = { x: topLeft[i].x, y: topLeft[i].y + distY };
-  //     var bottomRight = { x: topLeft[i].x + distX, y: topLeft[i].y + distY };
-  //     topLeft[i].x = Math.round((topLeft[i].x + Number.EPSILON) * 1000) / 1000;
-  //     topLeft[i].y = Math.round((topLeft[i].y + Number.EPSILON) * 1000) / 1000;
-  //     topRight.x = Math.round((topRight.x + Number.EPSILON) * 1000) / 1000;
-  //     topRight.y = Math.round((topRight.y + Number.EPSILON) * 1000) / 1000;
-  //     bottomLeft.x = Math.round((bottomLeft.x + Number.EPSILON) * 1000) / 1000;
-  //     bottomLeft.y = Math.round((bottomLeft.y + Number.EPSILON) * 1000) / 1000;
-  //     bottomRight.x = Math.round((bottomRight.x + Number.EPSILON) * 1000) / 1000;
-  //     bottomRight.y = Math.round((bottomRight.y + Number.EPSILON) * 1000) / 1000;
-  //     var allVertices = [{ x: topLeft[i].x, y: topLeft[i].y }, //topleft
-  //     { x: topRight.x, y: topRight.y }, //topright
-  //     { x: bottomRight.x, y: bottomRight.y }, //bottomRight
-  //     { x: bottomLeft.x, y: bottomLeft.y }, //bottomLeft
-  //     { x: topLeft[i].x, y: topLeft[i].y }]; // topleft
-  //     this.matrixBoundaries.push({ coords: topLeft[i].coords, actualCoordinates: allVertices, color: 'red', fill: 'red' });
-  //   }
-  //   this.matrixBoundaries.forEach(boundary => {
-  //     boundary.coordinates = [];
-  //     boundary.actualCoordinates.forEach((coords:any) => {
-  //       boundary.coordinates.push({ x: this.imageWidth * coords.x, y: this.imageHeight * coords.y });
-  //     });
-  //   });
-  //   this.plotMap();
-  // }
-  // new fabric.Rect({ top: 100, left: 100, 
-  //   width: 50, height: 50, fill: '#f55' }),
-
-  // renderPolygon(boundary:any) {
-  //   let polygon = new fabric.Rect(
-  //     { top: 10, left: 10, 
-  //       width: 500, height: 50,fill: '#A9A9A9' });
-  //   this.canvas.add(polygon);
-  //   if (boundary.fillText) {
-  //      this.renderText(boundary, 50, 10, true, true);
-  //   }
-  // }
-
   //! FOR POLYLINE
   renderPolygon(boundary:any) {
     let polyline = new fabric.Polyline(boundary.coordinates, {
@@ -233,39 +130,35 @@ onResize(event : any) {
   }
 
 
-
+radius = 1;
   createCircle() {
     return new fabric.Circle({
    //   radius: 250, left: 400, top: 100, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
    //radius: this.imageHeight/3, left: this.imageWidth/2 -(this.imageHeight/3) , top: this.imageHeight/2 -(this.imageHeight/3), fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
-   radius: this.imageWidth/5, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
+   radius: this.imageWidth/5 *this.radius, fill: '#FFFFFF',borderColor:'#000000',hasBorders:true,lockMovementX:true,lockMovementY:true
+   
   });
+
   
   }
 
+checkIntrution(oImg: { setCoords: () => void; isContainedWithinObject: (arg0: any) => any; }){
+ 
   
-  // createCircleb() {
-  //   return new fabric.Circle({
-  //     radius:this.imageHeight/6, left: this.imageWidth/2 -(this.imageHeight/3,) +this.imageHeight/6, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6, fill: '#231F20',borderColor:'#000000',hasBorders:true,lockMovementX:false,lockMovementY:false
-  //   });
-  // }
-
-
-  // createtriangle(){
-  //   return new fabric.Triangle({
-  //     width:50,
-  //     height:50,
-  //     left: this.imageWidth/2 -25,
-  //     top: this.imageHeight/2 - 10,
-  //     fill:'#AAA',
-  //     absolutePositioned:true,
-  //     flipY:true,
-  //     lockMovementX:true,
-  //     lockMovementY:true
-
-  //   })
-  // }
-  
+  if(this.c.isContainedWithinObject(oImg)){
+    console.log(this.c.type());
+              console.log("yes");
+              // console.log(oImg.getCoords()[0]); 
+              // oImg.set({left:oImg.getCoords()[0].x,top:oImg.getCoords()[0].y})
+                
+                // obj.setLeft(goodleft);
+                // canvas.refresh();    
+            } else {
+              console.log("no");
+                
+            }
+            
+          }
 
   
   
@@ -286,6 +179,7 @@ onResize(event : any) {
     //this.selectItemAfterAdded(c);
     // console.log(this.radiusCircle);
     this.boundObjectWithinCircle()
+    this.checkIntrution(this.c)
     
   }
 
@@ -297,11 +191,11 @@ onResize(event : any) {
       //var oImg = i.set({ left:610, top: 320}).scale(0.2);
       var oImg = i.set({ left: this.imageWidth/3, top: this.imageHeight/2 -(this.imageHeight/3) + this.imageHeight/6}).scale(this.radiusCircle*0.005);
       this.canvas.centerObject(oImg);
-      // var bound = i.getBoundingRect();
+      // var bound = i.getBoundingRec();
       this.canvas.add(oImg);
-      // this.canvas.bringToFront(oImg)
+      // this.canvas.bringToFront(oIm)
       var imageCenter = oImg.getCenterPoint();
-      console.log(imageCenter);
+      //console.log(imageCenter);
       this.imx=oImg.getCenterPoint().x;
       this.imy=oImg.getCenterPoint().y;
       this.boundObjectWithinCanvas()
@@ -336,39 +230,39 @@ onResize(event : any) {
 
   }
 
-  createInIm(distance:number,angle:number)
-  { 
-    //console.log("image is loaded");
+  // createInIm(distance:number,angle:number)
+  // { 
+  //   //console.log("image is loaded");
 
-    //var pointX = this.imx + distance  //* Math.cos(angle);
-    var pointX = this.imx + distance//* Math.cos(angle) // + (distance - this.imageWidth/5)
-    var pointY = this.imy + distance
-    console.log("pointX "+ pointX);
-    console.log("center of circle:"+ this.imx)
-    console.log(this.imageWidth/5);
-   // var pointY = this.imy + distance //* Math.sin(angle) ;
+  //   //var pointX = this.imx + distance  //* Math.cos(angle);
+  //   var pointX = this.imx + distance//* Math.cos(angle) // + (distance - this.imageWidth/5)
+  //   var pointY = this.imy + distance
+  //   console.log("pointX "+ pointX);
+  //   console.log("center of circle:"+ this.imx)
+  //   console.log(this.imageWidth/5);
+  //  // var pointY = this.imy + distance //* Math.sin(angle) ;
 
-    fabric.Image.fromURL('/assets/images/trolley.png',(im) =>
-    { 
-      //var oImg = i.set({ left:610, top: 320}).scale(0.2);
-      var oInImg = im.set({ left:pointX, top: pointY, originX :"center" , originY :"center"}).scale(this.radiusCircle*0.0009);     
-      //var oInImg = im.set({ left:pointX})//.scale(this.radiusCircle*0.0009);     
-      //var bound = im.getBoundingRect();
-      // this.canvas.renderAll(oInImg)
+  //   fabric.Image.fromURL('/assets/images/trolley.png',(im) =>
+  //   { 
+  //     //var oImg = i.set({ left:610, top: 320}).scale(0.2);
+  //     var oInImg = im.set({ left:pointX, top: pointY, originX :"center" , originY :"center"}).scale(this.radiusCircle*0.0009);     
+  //     //var oInImg = im.set({ left:pointX})//.scale(this.radiusCircle*0.0009);     
+  //     //var bound = im.getBoundingRect();
+  //     // this.canvas.renderAll(oInImg)
       
-      this.canvas.add(oInImg);
-      this.canvas.centerObject(oInImg);
-      console.log(oInImg.getCoords()); 
-      // console.log("image is rendered");
+  //     this.canvas.add(oInImg);
+  //     this.canvas.centerObject(oInImg);
+  //     console.log(oInImg.getCoords()); 
+  //     // console.log("image is rendered");
      
       
-      });
+  //     });
 
       
       
-  }
+  // }
   
-  
+
   createIntruderImage(distance:number , angle: number){
     //todo only done wrt to center , find center cordinates to allign with other Point of refernces
     fabric.Image.fromURL('/assets/images/cart1.png', (myImg) => {
@@ -380,25 +274,82 @@ onResize(event : any) {
       // var y_cord = this.distance*(0.001*this.imageWidth)
 //todo to make it scale wrt to height , change the image width to height
       var leftDist = this.imx + this.distance*(0.001*this.imageWidth)*Math.cos(angleInDeg);
-      var topDist = this.imy + (this.distance*(0.001*this.imageWidth))*Math.sin(angleInDeg);
+      var topDist = this.imy -(this.distance*(0.001*this.imageWidth))*Math.sin(angleInDeg);
       // console.log(this.distance*(0.001*this.imageWidth)* Math.tan(this.angle));
       // console.log(topDist);
       // console.log(this.distance*(0.001*this.imageWidth));
       var img1 = myImg.set({ left: leftDist , top:topDist, originX :"center" , originY :"center" }).scale(0.002*this.imageWidth);
       this.canvas.add(img1); 
      this.boundObjectWithinCanvas()
+
+
+
+     if (this.distance*(0.001*this.imageWidth) < this.imageWidth/5 *this.radius){
+      //  var timeout = setTimeout(() =>{
+      //   
+      //   this.canvas.renderAll();
+      // }, 100)
+      setInterval(async () => {
+      
+      this.c.set({fill :"#ff726f"})
+      this.canvas.renderAll();
+      // this.canvas.add(this.c)
+      await timer(100).pipe(take(1)).toPromise();
+      this.c.set({fill :"white"})
+      // this.canvas.add(this.c)
+      this.canvas.renderAll();
+
+   }, 250);
+          
+
+          
+    
+      
+      // setInterval(() => {
+      //   if (this.count % 2 == 0){
+      //     console.log("red");
+      //     this.c.set({fill :"red"})
+      //     console.log(this.count);
+      //     this.count = this.count +1
+          
+      //   }else{
+      //     this.setColorWhite(this.count)
+      //     this.count = this.count +1
+      //   }
+      // }, 1000);
+    }
+    else{
+       console.log("no");
+
+     } 
      });
-
-
-
   }
+
+   delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
+  count=0
+  setColorWhite(count: number){
+    console.log("red");
+    this.c.set({fill :"white"})
+    //console.log(this.count);
+    
+    
+  }
+
+  
+animate(){
+  console.log("red");
+  this.c.set({fill :"red"})
+}
 
   //todo Does not fix with scaling
   boundObjectWithinCanvas(){
     this.canvas.on('object:moving', function (e: { target: any; }) {
       var obj = e.target;
       // if object is too big ignore
-      console.log(obj.type)
+      //console.log(obj.type)
       if(obj.currentHeight > obj.canvas.height || obj.currentWidth > obj.canvas.width){
         return;
       }
@@ -528,6 +479,8 @@ onResize(event : any) {
 // }
 
 }
+
+
 
 //!---------------------- issues to fix-----------
 //todo glitch when we click on another object
