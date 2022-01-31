@@ -14,6 +14,8 @@ export class WindowComponent implements OnInit {
   imageWidth: number = 0;
   imageHeight: number = 0;
   canvas: any;
+  imx:any;
+  imy:any;
   matrixSize: any[] = [];
   
  
@@ -41,14 +43,16 @@ export class WindowComponent implements OnInit {
   ngAfterViewInit(){
     //! Draw for the first time
     this.draw(); 
+
     // this.addCircle()
     // this.createIm()
     // this.createInIm(100,10);
-  }
+
 
 
 @HostListener('window:resize', ['$event'])
 onResize(event : any) {
+
  //todo put reset canvas before everything else it will glitch
  this.resetCanvas();
  this.draw();   
@@ -56,6 +60,7 @@ onResize(event : any) {
   // this.addCircle();
   // this.createIm()
   // this.createInIm(10,10);
+
 }
 
 
