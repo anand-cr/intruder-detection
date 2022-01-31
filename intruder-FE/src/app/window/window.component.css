@@ -1,21 +1,16 @@
+div{
+  position: relative;
+}
 
 canvas{
   border: solid black 1px;
-  height: 100vh;
-  width : 100vh;
-  
-  /* position: relative;
-  display: block; */
+  height: 100%;
+  width : 100%;
 }
 .main-container{
-  /* margin-top: 5%;
-  margin-bottom: 10%; */
-  /* padding-top: 5%;
-  padding-bottom: 5%; */
-  width: 100%;
-  height: 100%;
-  /* display: flex;
-  flex-direction: row; */ 
+  margin: 20px auto;
+  width: 90%;
+  height: calc(100vh - 50px);
   
   display:grid;
   grid-template-columns: 70% 1fr;
@@ -25,15 +20,14 @@ canvas{
   
 }
 #alarm {
-  background: 	#D3D3D3	;
+  background: 	#dddddd	;
   border: black 1px solid;
-  
   position: relative;
 }
 
 
 #areaContainer{
-  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.08); */
   height: 100%;
   width: 100%;
   position: relative;
@@ -56,22 +50,38 @@ canvas{
 
 }
 
+#warning-status-div{
+  text-align: center;
+  width: 80%;
+   display: block;
+   text-align: center;
+   margin: auto;
+}
+#warning-status{
+  background-color: #777777;
+  border: none;
+  width: 80%;
+  height :20%;
+ 
+  
+}
 
-
+#warning-block{
+  margin-top: 10%;
+}
 
 .bottom-element{
   position: absolute;
   bottom: 20%;
   width: 100%;
-}
-
-#bottom-text{
+  display: block;
   
 }
-/* .redLegendCss {
-  width: 15px;
-  height: 15px;
-  border-radius: 100%;
-  margin: auto;
-  background-color: red;
-} */
+
+.bottom-text{
+  margin: 10px auto;
+  text-align: center;
+}
+
+
+
