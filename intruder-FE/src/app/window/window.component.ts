@@ -30,8 +30,8 @@ export class WindowComponent implements OnInit {
   radiusCircle =0
   c: any;
 
-  distance=300
-  angle= 180
+  distance=200
+  angle= 320
   constructor() { }
 
   ngAfterViewInit(){
